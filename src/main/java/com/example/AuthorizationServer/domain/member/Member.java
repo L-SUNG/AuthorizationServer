@@ -5,17 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Member {
+public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long index;
 
-    @Id
     @Column(length = 50, nullable = false)
     private String id;
 
@@ -33,6 +33,7 @@ public class Member {
 
     @Builder
     public Member(Long index, String id, String pass, String name, String email, String picture) {
+        this.index = index;
         this.id = id;
         this.pass = pass;
         this.name = name;
