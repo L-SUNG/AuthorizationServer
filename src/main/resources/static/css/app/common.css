@@ -3,7 +3,7 @@ html, body {
 }
 
 /* 모바일 모드 표시전용 */
-@media screen and (min-width:767px) {
+@media screen and (min-width:990px) {
     .mobile {
         display: none;
     }
@@ -11,7 +11,7 @@ html, body {
 }
 
 /* PC 모드 표시전용 */
-@media screen and (max-width:766px) {
+@media screen and (max-width:989px) {
     .desktop {
         display: none;
     }
