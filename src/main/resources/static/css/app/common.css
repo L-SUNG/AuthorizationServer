@@ -1,3 +1,18 @@
 html, body {
     height: 100%;
 }
+
+/* 모바일 모드 표시전용 */
+@media screen and (min-width:767px) {
+    .mobile {
+        display: none;
+    }
+
+}
+
+/* PC 모드 표시전용 */
+@media screen and (max-width:766px) {
+    .desktop {
+        display: none;
+    }
+}
