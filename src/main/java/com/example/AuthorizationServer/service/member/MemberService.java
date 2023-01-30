@@ -12,9 +12,15 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberResponseDto findById(Long id) {
-        Member entity = memberRepository.findById(id).orElseThrow(
+    public MemberResponseDto login(String id, String pass) {
+        Member entity = memberRepository.findByIdAndPass(id, pass).orElseThrow(
                 () -> new IllegalArgumentException("해당 유저가 없습니다. id=" + id));
+        return new MemberResponseDto(entity);
+    }
+
+    public MemberResponseDto findByIndex(Long index) {
+        Member entity = memberRepository.findById(index).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 없습니다. index=" + index));
         return new MemberResponseDto(entity);
     }
 }
