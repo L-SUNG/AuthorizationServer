@@ -18,7 +18,7 @@ public class SecurityConfig {
                 .and()
                 // 페이지 권한 설정
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**").permitAll()
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**", "/member/login").permitAll()
                 .anyRequest().authenticated();
 
         return http.build();

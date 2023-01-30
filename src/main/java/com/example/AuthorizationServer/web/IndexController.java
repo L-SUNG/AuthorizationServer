@@ -19,4 +19,9 @@ public class IndexController {
     public String index(Model model, @LoginUser SessionUser member) {
         return "index";
     }
+
+    @GetMapping("/member/login")
+    public String memberLogin() {
+        return "member-login";
+    }
 }
