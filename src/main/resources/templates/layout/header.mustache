@@ -21,7 +21,34 @@
             </div>
             <!-- 모바일웹 모드 표시-->
             <div class="d-flex align-self-center" style="height: 30px;">
-                <img class="mobile" src="/images/app/menu_FILL0_wght400_GRAD0_opsz40.svg" height="30px" width="30px">
+                <div class="dropdown">
+                    <img class="mobile" src="/images/app/menu_FILL0_wght400_GRAD0_opsz40.svg" data-bs-toggle="modal" data-bs-target="#topMenuModal" height="30px" width="30px">
+
+                    <!-- 모달 -->
+                    <div class="modal" id="topMenuModal" tabindex="-1" aria-labelledby="topMenuModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-lg-down mobile">
+                            <div class="modal-content">
+
+                                <!-- 모달 내부 컨텐츠-->
+                                <div class="row mx-0 bg-dark" style="height: 40px;">
+                                    <div class="col d-flex align-self-center">
+                                        <!-- 로그인 버튼 -->
+                                        <div class="d-flex align-self-center" style="height: 20px;">
+                                            <a href="/member/login"><p class="fw-bold text-light">로그인</p></a>
+                                        </div>
+                                        <!-- 모달 닫기 버튼 -->
+                                        <div class="col d-flex justify-content-end">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /모달 -->
+
+                </div>
             </div>
         </div>
     </div>
