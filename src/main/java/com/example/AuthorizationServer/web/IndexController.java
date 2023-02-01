@@ -24,4 +24,9 @@ public class IndexController {
     public String memberLogin() {
         return "member-login";
     }
+
+    @GetMapping("/member/signin")
+    public String memberSignIn() {
+        return "member-signin";
+    }
 }
