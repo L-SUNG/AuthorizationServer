@@ -18,7 +18,7 @@ public class SecurityConfig {
                 .and()
                     // 페이지 권한 설정
                     .authorizeRequests()
-                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**", "/member/login", "/member/signin").permitAll()
+                    .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**", "/member/login", "/member/signin/**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     // 페이지 액세스 권한 부족시 이동할 로그인화면 설정
