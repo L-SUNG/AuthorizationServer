@@ -1,11 +1,11 @@
-package com.example.AuthorizationServer.service.member;
+package com.example.authorizationserver.service.member;
 
-import com.example.AuthorizationServer.domain.member.Member;
-import com.example.AuthorizationServer.domain.member.MemberRepository;
-import com.example.AuthorizationServer.web.dto.MemberSaveRequestDto;
-import com.example.AuthorizationServer.web.dto.MemberResponseDto;
+import com.example.authorizationserver.domain.member.Member;
+import com.example.authorizationserver.domain.member.MemberRepository;
+import com.example.authorizationserver.web.dto.MemberLoginRequestDto;
+import com.example.authorizationserver.web.dto.MemberSaveRequestDto;
+import com.example.authorizationserver.web.dto.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +15,14 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public MemberResponseDto login(String id, String pass) {
-        Member entity = memberRepository.findByIdAndPass(id, pass).orElseThrow(
-                () -> new IllegalArgumentException("해당 유저가 없습니다. id=" + id));
-        return new MemberResponseDto(entity);
+    /**
+     * 로그인 처리
+     * @param requestDto 로그인 요청 멤버의 정보
+     * @return 멤버정보
+     */
+    public Member login(MemberLoginRequestDto requestDto) {
+        Member entity = memberRepository.findByIdAndPass(requestDto.getId(), requestDto.getPass());
+        return entity;
     }
 
     /**

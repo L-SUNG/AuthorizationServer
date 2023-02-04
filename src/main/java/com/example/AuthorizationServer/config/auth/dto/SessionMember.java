@@ -1,12 +1,12 @@
-package com.example.AuthorizationServer.config.auth.dto;
+package com.example.authorizationserver.config.auth.dto;
 
-import com.example.AuthorizationServer.domain.member.Member;
+import com.example.authorizationserver.domain.member.Member;
 import lombok.Getter;
 
 import java.io.Serializable;
 
 @Getter
-public class SessionUser implements Serializable {
+public class SessionMember implements Serializable {
 
     private Long index;
     private String id;
@@ -14,7 +14,7 @@ public class SessionUser implements Serializable {
     private String email;
     private String picture;
 
-    public SessionUser(Member member) {
+    public SessionMember(Member member) {
         if (member != null) {
             this.index = member.getIndex();
             this.id = member.getId();

@@ -1,4 +1,4 @@
-package com.example.AuthorizationServer.domain.member;
+package com.example.authorizationserver.domain.member;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.example.AuthorizationServer.web.dto;
+package com.example.authorizationserver.web.dto;
 
-import com.example.AuthorizationServer.domain.member.Member;
+import com.example.authorizationserver.domain.member.Member;
 import lombok.Getter;
 
 @Getter
