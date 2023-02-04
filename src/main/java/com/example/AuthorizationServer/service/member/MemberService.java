@@ -5,6 +5,7 @@ import com.example.AuthorizationServer.domain.member.MemberRepository;
 import com.example.AuthorizationServer.web.dto.MemberSaveRequestDto;
 import com.example.AuthorizationServer.web.dto.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,7 @@ public class MemberService {
      * @return 등록된 멤버의 index 번호
      */
     @Transactional
-    public Long save(MemberSaveRequestDto memberSaveRequestDto) {
+    public Long save(MemberSaveRequestDto memberSaveRequestDto) throws Exception {
         return memberRepository.save(memberSaveRequestDto.toEntity()).getIndex();
     }
 }

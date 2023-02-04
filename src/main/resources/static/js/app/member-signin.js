@@ -13,7 +13,9 @@ $("#id").on("input", function(){
     let inputId=this.value;
     // 2. 유효성(4글자이상 50글자 이하)을 검증한다.
     isIdValid = inputId.length >= 4 && inputId.length <= 50;
-    // 3. 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
+    // 3. 표시할 메세지 설정
+    $("#invalidId").text("4글자 이상 50글자 이하로 작성해 주세요.");
+    // 4. 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
     if(isIdValid){
         this.classList.remove("is-invalid");
         this.classList.add("is-valid");
@@ -131,8 +133,24 @@ var member = {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function() {
-            $("#memberSignInForm").submit();
+        }).done(function(result) {
+
+            if (result != -1) {
+                // 등록 화면 서브밋
+                $("#memberSignInForm").submit();
+            } else {
+                alert("입력한 ID가 이미 존재합니다.");
+                // 아이디 입력칸 비활성화
+                isIdValid=false;
+                // 표시할 메세지 설정
+                $("#invalidId").text("입력한 ID가 이미 존재합니다.");
+                // 아이디 입력칸 경고표시
+                $("#id").removeClass("is-valid");
+                $("#id").addClass("is-invalid");
+                // 등록버튼 상태 갱신
+                saveBtnControl();
+            }
+
         }).fail(function(error) {
             alert(JSON.stringify(error));
         })
