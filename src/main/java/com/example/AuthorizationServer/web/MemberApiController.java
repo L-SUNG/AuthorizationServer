@@ -14,24 +14,6 @@ public class MemberApiController {
     private final MemberService memberService;
 
     /**
-     * 로그인 화면 이동
-     * @return 로그인 화면
-     */
-    @GetMapping("/member/login")
-    public String memberLogin() {
-        return "member-login";
-    }
-
-    /**
-     * 멤버 등록 화면으로 이동
-     * @return 멤버 등록 화면
-     */
-    @GetMapping("/member/signin")
-    public String memberSignIn() {
-        return "member-signin";
-    }
-
-    /**
      * index 번호에 의한 멤버 검색
      * @param index 멤버 index 번호
      * @return 멤버 정보
@@ -49,20 +31,5 @@ public class MemberApiController {
     @PostMapping("/api/v1/member")
     public Long save(@RequestBody MemberSaveRequestDto requestDto) {
         return memberService.save(requestDto);
-    }
-
-    /**
-     * 신규 멤버 등록완료 화면으로 이동
-     * @param dto 신규 멤버 등록정보
-     * @param model 모델
-     * @return 신규 멤버 등록완료 화면
-     */
-    @PostMapping("/member/signin/complete")
-    public String memberSignInComplete(MemberSaveRequestDto dto, Model model) {
-
-        // 등록완료 화면에 표시할 멤버의 ID를 지정
-        model.addAttribute("id", dto.getId());
-
-        return "member-signin-complete";
     }
 }

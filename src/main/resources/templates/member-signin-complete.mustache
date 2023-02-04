@@ -1,13 +1,15 @@
 {{>layout/header}}
 <div class="d-flex justify-content-center mt-2">
-    <div class="row mx-0" style="width: 800px;">
+    <div class="row mx-0" style="width: 400px;">
         <div>
             <h1>유저등록완료</h1>
         </div>
 
-        <p class="font-weight-bold text-primary">{{id}}</p><p>의유저등록이 완료되었습니다.</p>
+        <div>
+            <strong class="text-primary mt-3">{{id}}</strong><span>의유저등록이 완료되었습니다.</span>
+        </div>
 
-        <div class="col alien-end">
+        <div class="d-flex align-items-end flex-column mt-3">
             <a href="/member/login" role="button" class="btn btn-primary">로그인</a>
         </div>
     </div>
