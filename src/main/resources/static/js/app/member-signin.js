@@ -1,9 +1,9 @@
 // 아이디의 유효성 여부를 저장할 변수를 만들고 초기값 false 부여
 let isIdValid=false;
 // 패스워드의 유효성 여부를 저장할 변수를 만들고 초기값 false 부여
-let isPasswardValid=false;
+let isPassValid=false;
 // 패스워드 확인의 유효성 여부를 저장할 변수를 만들고 초기값 false 부여
-let isPasswordConfirmValid=false;
+let isPassConfirmValid=false;
 // 이름의 유효성 여부를 저장할 변수를 만들고 초기값 false 부여
 let isNameValid=false;
 
@@ -21,19 +21,22 @@ $("#id").on("input", function(){
         this.classList.remove("is-valid");
         this.classList.add("is-invalid");
     }
+
+    // 등록버튼 상태 갱신
+    saveBtnControl();
 });
 
-// id 가 password 인 input 요소에 input 이벤트가 일어났을때 실행할 함수 등록
-$("#password").on("input", function(){
+// id 가 pass 인 input 요소에 input 이벤트가 일어났을때 실행할 함수 등록
+$("#pass").on("input", function(){
     // 영문 대문자 + 소문자 + 숫자 조합
     var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/;
 
     // 1. 입력한 value 값을 읽어온다.
-    let inputPassword=this.value;
+    let inputPass=this.value;
     // 2. 정규표현식(1자리의 영문 대문자 + 영문 소문자 + 숫자 조합)을 통해 유효성을 검사
-    isPasswardValid = reg.test(inputPassword);
+    isPassValid = reg.test(inputPass);
     // 3. 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
-    if(isPasswardValid){
+    if(isPassValid){
         this.classList.remove("is-invalid");
         this.classList.add("is-valid");
     }else{
@@ -42,31 +45,38 @@ $("#password").on("input", function(){
     }
     // 패스워드를 변경하면 패스워드 확인에 입력한 값과 차이가 발생하기 때문에
     // 패스워드 확인의 유효성 검사를 실시
-    passwordConfirmCheck();
+    passConfirmCheck();
+
+    // 등록버튼 상태 갱신
+    saveBtnControl();
 });
 
-// id 가 passwordConfirm 인 input 요소에 input 이벤트가 일어났을때 실행할 함수 등록
-$("#passwordConfirm").on("input", function(){
+// id 가 passConfirm 인 input 요소에 input 이벤트가 일어났을때 실행할 함수 등록
+$("#passConfirm").on("input", function(){
     // 패스워드 확인의 유효성 검사를 실시
-    passwordConfirmCheck();
+    passConfirmCheck();
 });
 
 // 패스워드 확인의 유효성 검사
-function passwordConfirmCheck() {
-    let passwordConfirm = $("#passwordConfirm");
+function passConfirmCheck() {
+
+    let passConfirm = $("#passConfirm");
 
     // 1. 입력한 value 값을 읽어온다.
-    let inputPasswordConfirm=passwordConfirm.val();
+    let inputPassConfirm=passConfirm.val();
     // 2. 유효성(패스워드의 유효성이 true이며 패스워드와 패스워드 확인의 입력값이 일치)을 검증한다.
-    isPasswordConfirmValid = isPasswardValid == true && $("#password").val() == inputPasswordConfirm;
+    isPassConfirmValid = isPassValid == true && $("#pass").val() == inputPassConfirm;
     // 3. 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
-    if(isPasswordConfirmValid){
-        passwordConfirm.removeClass("is-invalid");
-        passwordConfirm.addClass("is-valid");
+    if(isPassConfirmValid){
+        passConfirm.removeClass("is-invalid");
+        passConfirm.addClass("is-valid");
     }else{
-        passwordConfirm.removeClass("is-valid");
-        passwordConfirm.addClass("is-invalid");
+        passConfirm.removeClass("is-valid");
+        passConfirm.addClass("is-invalid");
     }
+
+    // 등록버튼 상태 갱신
+    saveBtnControl();
 }
 
 // id 가 name 인 input 요소에 input 이벤트가 일어났을때 실행할 함수 등록
@@ -83,4 +93,50 @@ $("#name").on("input", function(){
         this.classList.remove("is-valid");
         this.classList.add("is-invalid");
     }
+
+    // 등록버튼 상태 갱신
+    saveBtnControl();
 });
+
+// 등록버튼 활성/비활성 제어
+function saveBtnControl() {
+    // 각 입력항목들의 유효검사 결과를 검사
+    if (isIdValid && isPassValid && isPassConfirmValid && isNameValid) {
+        // 등록 버튼 활성화
+        $("#btn-save").attr("disabled", false);
+    } else {
+        // 등록 버튼 비활성화
+        $("#btn-save").attr("disabled", true);
+    }
+}
+
+var member = {
+    init: function() {
+        var _this = this;
+        // 신규회원 등록 버튼 이벤트
+        $('#btn-save').on('click', function() {
+            _this.save();
+        });
+    },
+    save: function() {
+        var data = {
+            id: $('#id').val(),
+            pass: $('#pass').val(),
+            name: $('#name').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/v1/member',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            $("#memberSignInForm").submit();
+        }).fail(function(error) {
+            alert(JSON.stringify(error));
+        })
+    }
+};
+
+member.init();

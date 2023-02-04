@@ -1,7 +1,7 @@
 {{>layout/header}}
 <div class="d-flex justify-content-center mt-2">
     <div class="row mx-0" style="width: 800px;">
-        <form action="/member/signin/complete" method="post">
+        <form id="memberSignInForm" action="/member/signin/complete" method="post">
             <div>
                 <h1>유저등록</h1>
             </div>
@@ -18,8 +18,8 @@
             </div>
 
             <div class="form-group  mt-3">
-                <label for="password">패스워드</label>
-                <input type="password" class="form-control is-invalid" id="password" name="password" placeholder="패스워드" required>
+                <label for="pass">패스워드</label>
+                <input type="pass" class="form-control is-invalid" id="pass" name="pass" placeholder="패스워드" required>
                 <div class="valid-feedback">
                     사용가능한 패스워드 입니다.
                 </div>
@@ -29,8 +29,8 @@
             </div>
 
             <div class="form-group  mt-3">
-                <label for="passwordConfirm">패스워드 확인</label>
-                <input type="password" class="form-control is-invalid" id="passwordConfirm" placeholder="패스워드 확인" required>
+                <label for="passConfirm">패스워드 확인</label>
+                <input type="pass" class="form-control is-invalid" id="passConfirm" placeholder="패스워드 확인" required>
                 <div class="valid-feedback">
                     패스워드가 일치합니다.
                 </div>
@@ -53,7 +53,7 @@
             <div class="d-flex align-items-end flex-column">
                 <div class="col alien-end">
                     <!--<a href="/member/signin/complete" role="button" class="btn btn-primary">등록</a>-->
-                    <button type="submit" class="btn btn-primary mt-3">등록</button>
+                    <button type="button" id="btn-save" class="btn btn-primary mt-3" disabled>등록</button>
                 </div>
             </div>
         </form>
