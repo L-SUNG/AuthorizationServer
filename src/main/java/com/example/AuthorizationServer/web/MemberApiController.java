@@ -13,19 +13,19 @@ public class MemberApiController {
     private final MemberService memberService;
 
     /**
-     * index 번호에 의한 멤버 검색
-     * @param index 멤버 index 번호
+     * seq 번호에 의한 멤버 검색
+     * @param seq 멤버 seq 번호
      * @return 멤버 정보
      */
-    @GetMapping("/api/v1/member/{index}")
-    public MemberResponseDto findByIndex(@PathVariable Long index) {
-        return memberService.findByIndex(index);
+    @GetMapping("/api/v1/member/{seq}")
+    public MemberResponseDto findBySeq(@PathVariable Long seq) {
+        return memberService.findBySeq(seq);
     }
 
     /**
      * 신규 멤버 등록
      * @param requestDto 멤버 등록정보
-     * @return 등록된 멤버 Index
+     * @return 등록된 멤버 Seq
      */
     @PostMapping("/api/v1/member")
     public Long save(@RequestBody MemberSaveRequestDto requestDto) {

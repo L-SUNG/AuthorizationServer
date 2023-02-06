@@ -26,23 +26,23 @@ public class MemberService {
     }
 
     /**
-     * index 번호로 멤버 검색
-     * @param index 등록된 멤버의 index 번호
+     * seq 번호로 멤버 검색
+     * @param seq 등록된 멤버의 seq 번호
      * @return 등록 멤버정보
      */
-    public MemberResponseDto findByIndex(Long index) {
-        Member entity = memberRepository.findById(index).orElseThrow(
-                () -> new IllegalArgumentException("해당 유저가 없습니다. index=" + index));
+    public MemberResponseDto findBySeq(Long seq) {
+        Member entity = memberRepository.findById(seq).orElseThrow(
+                () -> new IllegalArgumentException("해당 유저가 없습니다. seq=" + seq));
         return new MemberResponseDto(entity);
     }
 
     /**
      * 멤버 등록
      * @param memberSaveRequestDto 멤버 등록정보
-     * @return 등록된 멤버의 index 번호
+     * @return 등록된 멤버의 seq 번호
      */
     @Transactional
     public Long save(MemberSaveRequestDto memberSaveRequestDto) throws Exception {
-        return memberRepository.save(memberSaveRequestDto.toEntity()).getIndex();
+        return memberRepository.save(memberSaveRequestDto.toEntity()).getSeq();
     }
 }

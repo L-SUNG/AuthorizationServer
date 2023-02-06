@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Getter
 public class SessionMember implements Serializable {
 
-    private Long index;
+    private Long seq;
     private String id;
     private String name;
     private String email;
@@ -16,7 +16,7 @@ public class SessionMember implements Serializable {
 
     public SessionMember(Member member) {
         if (member != null) {
-            this.index = member.getIndex();
+            this.seq = member.getSeq();
             this.id = member.getId();
             this.name = member.getName();
             this.email = member.getEmail();

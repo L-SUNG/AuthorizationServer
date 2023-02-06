@@ -14,7 +14,7 @@ public class Member implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long index;
+    private Long seq;
 
     @Column(length = 50, unique = true, nullable = false)
     private String id;
@@ -32,8 +32,8 @@ public class Member implements Serializable {
     private String picture;
 
     @Builder
-    public Member(Long index, String id, String pass, String name, String email, String picture) {
-        this.index = index;
+    public Member(Long seq, String id, String pass, String name, String email, String picture) {
+        this.seq = seq;
         this.id = id;
         this.pass = pass;
         this.name = name;

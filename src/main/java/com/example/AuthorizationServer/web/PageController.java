@@ -70,7 +70,7 @@ public class PageController {
     /**
      * 멤버 로그인
      * @param requestDto 멤버 등록정보
-     * @return 등록된 멤버 Index
+     * @return 등록된 멤버 Seq
      */
     @PostMapping("/member/loginProc")
     public String login(MemberLoginRequestDto requestDto, RedirectAttributes redirectAttributes) {
