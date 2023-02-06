@@ -31,6 +31,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	// 템플릿엔진
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	// MySQL
+	implementation 'mysql:mysql-connector-java:8.0.32'
 }
 
 tasks.named('test') {
