@@ -1,6 +1,7 @@
 package com.example.authorizationserver.web.dto;
 
 import com.example.authorizationserver.domain.member.Member;
+import com.example.authorizationserver.domain.member.Role;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -23,6 +24,7 @@ public class MemberSaveRequestDto {
                 .id(id)
                 .pass(pass)
                 .name(name)
+                .role(Role.MEMBER)
                 .build();
     }
 }

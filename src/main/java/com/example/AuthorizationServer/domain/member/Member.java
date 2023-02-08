@@ -31,15 +31,22 @@ public class Member implements Serializable {
     @Column(nullable = true)
     private String picture;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     @Builder
-    public Member(Long seq, String id, String pass, String name, String email, String picture) {
+    public Member(Long seq, String id, String pass, String name, String email, String picture, Role role) {
         this.seq = seq;
         this.id = id;
         this.pass = pass;
         this.name = name;
         this.email = email;
         this.picture = picture;
+        this.role = role;
     }
 
-
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 }
