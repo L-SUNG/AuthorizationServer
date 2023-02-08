@@ -5,6 +5,10 @@ import lombok.Getter;
 
 import java.io.Serializable;
 
+
+/**
+ * 인증된 멤버의 정보
+ */
 @Getter
 public class SessionMember implements Serializable {
 

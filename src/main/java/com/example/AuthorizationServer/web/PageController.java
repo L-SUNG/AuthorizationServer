@@ -44,6 +44,17 @@ public class PageController {
     }
 
     /**
+     * 로그아웃 처리
+     * @return index 화면
+     */
+    @GetMapping("/member/logout")
+    public String memberLogout() {
+        // 세션 초기화
+        httpSession.invalidate();
+        return "redirect:/";
+    }
+
+    /**
      * 멤버 등록 화면으로 이동
      * @return 멤버 등록 화면
      */
