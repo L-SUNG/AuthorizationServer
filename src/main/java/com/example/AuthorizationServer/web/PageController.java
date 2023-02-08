@@ -23,14 +23,7 @@ public class PageController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String index(Model model, @LoginMember SessionMember member) {
-
-        // LoginMember 어노테이션을 통해 취득한 member를 판정
-        if (member != null) {
-            // 세션에서 취득한 member가 null이 아닐경우 memberName에 유저명을 설정
-            model.addAttribute("loginMemberName", member.getName());
-        }
-
+    public String index(@LoginMember SessionMember member) {
         return "index";
     }
 

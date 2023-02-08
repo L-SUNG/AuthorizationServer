@@ -19,12 +19,12 @@
         <div class="col d-flex justify-content-end">
             <!-- 데스크톱 모드 표시-->
             <div class="d-flex align-self-center" style="height: 20px;">
-                {{^loginMemberName}}
+                {{^member}}
                     <a href="/member/login"><p class="desktop fw-bold text-light">로그인</p></a>
-                {{/loginMemberName}}
-                {{#loginMemberName}}
+                {{/member}}
+                {{#member}}
                     <a href="/member/logout"><p class="desktop fw-bold text-light">로그아웃</p></a>
-                {{/loginMemberName}}
+                {{/member}}
             </div>
             <!-- 모바일웹 모드 표시-->
             <div class="d-flex align-self-center" style="height: 30px;">
@@ -42,12 +42,12 @@
                                         <!-- 로그인 버튼 -->
                                         <div class="d-flex align-self-center" style="height: 20px;">
 
-                                            {{^loginMemberName}}
+                                            {{^member}}
                                                 <a href="/member/login"><p class="fw-bold text-light">로그인</p></a>
-                                            {{/loginMemberName}}
-                                            {{#loginMemberName}}
-                                                <a href="/member/login"><p class="fw-bold text-light">로그아웃</p></a>
-                                            {{/loginMemberName}}
+                                            {{/member}}
+                                            {{#member}}
+                                                <a href="/member/logout"><p class="fw-bold text-light">로그아웃</p></a>
+                                            {{/member}}
                                         </div>
                                         <!-- 모달 닫기 버튼 -->
                                         <div class="col d-flex justify-content-end">
