@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -89,6 +90,38 @@ public class PageController {
         } else {
             redirectAttributes.addFlashAttribute("error", "로그인에 실패하였습니다. 아이디와 패스워드를 확인해주세요.");
             return "redirect:/member/login";
+        }
+    }
+
+    /**
+     * 마이페이지 화면으로 이동
+     * @return 마이페이지 화면
+     */
+    @GetMapping("/member/mypage")
+    public String memberMyPage(Model model) {
+
+        // 로그인 상태 확인
+        if (!loginCheck()) {
+            return "redirect:/member/login";
+        }
+
+        return "member-mypage";
+    }
+
+    /**
+     * 로그인 상태 확인
+     * TODO:SpringSecurity를 활용한 로그인 검사로 전환 필요
+     * @return 확인결과
+     */
+    private boolean loginCheck() {
+        SessionMember sessionMember = (SessionMember) httpSession.getAttribute("member");
+        // 로그인 상태 확인
+        if (sessionMember == null) {
+            // 비로그인 상태
+            return false;
+        } else {
+            // 로그인 상태
+            return true;
         }
     }
 }
