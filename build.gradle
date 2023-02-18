@@ -17,10 +17,12 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'junit:junit:4.13.1'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 	// 세큐리티 테스트
 	implementation 'org.springframework.security:spring-security-test'
+	// 유효성 검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// h2 인메모리형 데이터베이스
 	implementation 'com.h2database:h2'

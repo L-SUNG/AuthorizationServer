@@ -2,18 +2,26 @@ package com.example.authorizationserver.web;
 
 import com.example.authorizationserver.config.auth.dto.SessionMember;
 import com.example.authorizationserver.domain.member.Member;
+import com.example.authorizationserver.dto.ErrorMsg;
 import com.example.authorizationserver.service.member.MemberService;
 import com.example.authorizationserver.web.dto.MemberLoginRequestDto;
 import com.example.authorizationserver.web.dto.MemberSaveRequestDto;
+import com.example.authorizationserver.web.form.MemberCreateForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -50,6 +58,48 @@ public class MemberController {
     @GetMapping("/signin")
     public String memberSignIn() {
         return "member-signin";
+    }
+
+    /**
+     *
+     * @param memberCreateForm
+     * @param bindingResult
+     * @param model
+     * @return
+     */
+    @PostMapping("/signin")
+    public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult, Model model) {
+
+        // 유효성 검사 판정
+        if (bindingResult.hasErrors()) {
+            // 유효성 검사 에러 발생시 에러 메세지를 추출하여 리스트에 추가
+            List<ErrorMsg> errorList = new ArrayList<>();
+            for(FieldError error : bindingResult.getFieldErrors()) {
+                errorList.add(new ErrorMsg(error.getDefaultMessage()));
+            }
+            if (!errorList.isEmpty()) {
+                // 에러 메세지 리스트를 모델에 추가
+                model.addAttribute("validationErrors", errorList);
+            }
+            return "member-signin";
+        }
+
+        try {
+            // 멤버등록처리
+            memberService.create(memberCreateForm.getId(), memberCreateForm.getPass());
+        }catch(DataIntegrityViolationException e) {
+            // 중복발생
+            e.printStackTrace();
+            model.addAttribute("validationErrors", new ErrorMsg("이미 등록된 사용자입니다."));
+            return "member-signin";
+        }catch(Exception e) {
+            // 예외발생
+            e.printStackTrace();
+            model.addAttribute("validationErrors", new ErrorMsg(e.getMessage()));
+            return "member-signin";
+        }
+
+        return "redirect:/";
     }
 
     /**
