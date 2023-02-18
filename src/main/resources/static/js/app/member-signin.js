@@ -112,49 +112,51 @@ function saveBtnControl() {
     }
 }
 
-var member = {
-    init: function() {
-        var _this = this;
-        // 신규회원 등록 버튼 이벤트
-        $('#btn-save').on('click', function() {
-            _this.save();
-        });
-    },
-    save: function() {
-        var data = {
-            id: $('#id').val(),
-            pass: $('#pass').val(),
-            name: $('#name').val()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/api/v1/member',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function(result) {
-
-            if (result != -1) {
-                // 등록 화면 서브밋
-                $("#memberSignInForm").submit();
-            } else {
-                alert("입력한 ID가 이미 존재합니다.");
-                // 아이디 입력칸 비활성화
-                isIdValid=false;
-                // 표시할 메세지 설정
-                $("#invalidId").text("입력한 ID가 이미 존재합니다.");
-                // 아이디 입력칸 경고표시
-                $("#id").removeClass("is-valid");
-                $("#id").addClass("is-invalid");
-                // 등록버튼 상태 갱신
-                saveBtnControl();
-            }
-
-        }).fail(function(error) {
-            alert(JSON.stringify(error));
-        })
-    }
-};
-
-member.init();
+// 2023-02-18
+// 스프링 시큐리티에 의한 멤버등록을 위해 멤버등록 API 처리를 주석
+//var member = {
+//    init: function() {
+//        var _this = this;
+//        // 신규회원 등록 버튼 이벤트
+//        $('#btn-save').on('click', function() {
+//            _this.save();
+//        });
+//    },
+//    save: function() {
+//        var data = {
+//            id: $('#id').val(),
+//            pass: $('#pass').val(),
+//            name: $('#name').val()
+//        };
+//
+//        $.ajax({
+//            type: 'POST',
+//            url: '/api/v1/member',
+//            dataType: 'json',
+//            contentType: 'application/json; charset=utf-8',
+//            data: JSON.stringify(data)
+//        }).done(function(result) {
+//
+//            if (result != -1) {
+//                // 등록 화면 서브밋
+//                $("#memberSignInForm").submit();
+//            } else {
+//                alert("입력한 ID가 이미 존재합니다.");
+//                // 아이디 입력칸 비활성화
+//                isIdValid=false;
+//                // 표시할 메세지 설정
+//                $("#invalidId").text("입력한 ID가 이미 존재합니다.");
+//                // 아이디 입력칸 경고표시
+//                $("#id").removeClass("is-valid");
+//                $("#id").addClass("is-invalid");
+//                // 등록버튼 상태 갱신
+//                saveBtnControl();
+//            }
+//
+//        }).fail(function(error) {
+//            alert(JSON.stringify(error));
+//        })
+//    }
+//};
+//
+//member.init();
