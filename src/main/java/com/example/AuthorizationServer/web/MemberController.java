@@ -6,7 +6,7 @@ import com.example.authorizationserver.dto.ErrorMsg;
 import com.example.authorizationserver.service.member.MemberService;
 import com.example.authorizationserver.web.dto.MemberLoginRequestDto;
 import com.example.authorizationserver.web.dto.MemberSaveRequestDto;
-import com.example.authorizationserver.web.form.MemberCreateForm;
+import com.example.authorizationserver.web.form.MemberSignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -55,20 +55,20 @@ public class MemberController {
      * 멤버 등록 화면으로 이동
      * @return 멤버 등록 화면
      */
-    @GetMapping("/signin")
-    public String memberSignIn() {
-        return "member-signin";
+    @GetMapping("/signup")
+    public String memberSignUp() {
+        return "member-signup";
     }
 
     /**
-     *
-     * @param memberCreateForm
-     * @param bindingResult
-     * @param model
-     * @return
+     * 멤버 등록 처리
+     * @param memberSignUpForm 멤버 등록 입력폼 정보
+     * @param bindingResult 유효성 검사 결과
+     * @param model 화면 모델
+     * @return 신규 멤버 등록완료 화면
      */
-    @PostMapping("/signin")
-    public String signup(@Valid MemberCreateForm memberCreateForm, BindingResult bindingResult, Model model) {
+    @PostMapping("/signup")
+    public String signup(@Valid MemberSignUpForm memberSignUpForm, BindingResult bindingResult, Model model) {
 
         // 유효성 검사 판정
         if (bindingResult.hasErrors()) {
@@ -81,25 +81,29 @@ public class MemberController {
                 // 에러 메세지 리스트를 모델에 추가
                 model.addAttribute("validationErrors", errorList);
             }
-            return "member-signin";
+            return "member-signup";
         }
 
+        Member member = new Member();
         try {
             // 멤버등록처리
-            memberService.create(memberCreateForm.getId(), memberCreateForm.getPass());
+            member = memberService.create(memberSignUpForm);
         }catch(DataIntegrityViolationException e) {
             // 중복발생
             e.printStackTrace();
             model.addAttribute("validationErrors", new ErrorMsg("이미 등록된 사용자입니다."));
-            return "member-signin";
+            return "member-signup";
         }catch(Exception e) {
             // 예외발생
             e.printStackTrace();
             model.addAttribute("validationErrors", new ErrorMsg(e.getMessage()));
-            return "member-signin";
+            return "member-signup";
         }
 
-        return "redirect:/";
+        // 등록완료 화면에 표시할 멤버의 ID를 지정
+        model.addAttribute("id", member.getId());
+
+        return "member-signup-complete";
     }
 
     /**
@@ -108,13 +112,13 @@ public class MemberController {
      * @param model 모델
      * @return 신규 멤버 등록완료 화면
      */
-    @PostMapping("/signin/complete")
-    public String memberSignInComplete(MemberSaveRequestDto dto, Model model) {
+    @PostMapping("/signup/complete")
+    public String memberSignUpComplete(MemberSaveRequestDto dto, Model model) {
 
         // 등록완료 화면에 표시할 멤버의 ID를 지정
         model.addAttribute("id", dto.getId());
 
-        return "member-signin-complete";
+        return "member-signup-complete";
     }
 
     /**

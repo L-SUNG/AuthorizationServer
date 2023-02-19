@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-public class MemberCreateForm {
+public class MemberSignUpForm {
 
 
     @NotEmpty(message = "사용자ID는 필수항목입니다.")
@@ -15,4 +15,7 @@ public class MemberCreateForm {
 
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
     private String pass;
+
+    @NotEmpty(message = "이름은 필수항목입니다.")
+    private String name;
 }

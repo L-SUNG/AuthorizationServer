@@ -139,7 +139,7 @@ function saveBtnControl() {
 //
 //            if (result != -1) {
 //                // 등록 화면 서브밋
-//                $("#memberSignInForm").submit();
+//                $("#memberSignUpForm").submit();
 //            } else {
 //                alert("입력한 ID가 이미 존재합니다.");
 //                // 아이디 입력칸 비활성화
