@@ -1,19 +1,29 @@
 package com.example.authorizationserver.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig {
+
+    /**
+     * 로그인 실패 핸들러 의존성 주입
+     */
+    @Autowired
+    AuthenticationFailureHandler customFailureHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -31,10 +41,17 @@ public class SecurityConfig {
                     .antMatchers(HttpMethod.POST, "/h2-console/**", "/member/loginProc", "/member/signup/**", "/api/v1/**").permitAll()
                     .anyRequest().permitAll()
                 .and()
-                    // 페이지 액세스 권한 부족시 이동할 로그인화면 설정
-                    .formLogin().loginPage("/member/login");
+                    .formLogin()
+                    .loginPage("/member/login")
+                    .defaultSuccessUrl("/")
+                    .failureHandler(customFailureHandler);
 
         return http.build();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
