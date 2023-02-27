@@ -21,16 +21,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     /**
-     * 로그인 처리
-     * @param requestDto 로그인 요청 멤버의 정보
-     * @return 멤버정보
-     */
-    public Member login(MemberLoginRequestDto requestDto) {
-        Member entity = memberRepository.findByIdAndPass(requestDto.getId(), requestDto.getPass());
-        return entity;
-    }
-
-    /**
      * seq 번호로 멤버 검색
      * @param seq 등록된 멤버의 seq 번호
      * @return 등록 멤버정보

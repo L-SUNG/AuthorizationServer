@@ -4,7 +4,6 @@ import com.example.authorizationserver.config.auth.dto.SessionMember;
 import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.dto.ErrorMsg;
 import com.example.authorizationserver.service.member.MemberService;
-import com.example.authorizationserver.web.dto.MemberLoginRequestDto;
 import com.example.authorizationserver.web.form.MemberSignUpForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -45,17 +43,6 @@ public class MemberController {
         model.addAttribute("exception", exception);
 
         return "member-login";
-    }
-
-    /**
-     * 로그아웃 처리
-     * @return index 화면
-     */
-    @GetMapping("/logout")
-    public String memberLogout() {
-        // 세션 초기화
-        httpSession.invalidate();
-        return "redirect:/";
     }
 
     /**
@@ -111,27 +98,6 @@ public class MemberController {
         model.addAttribute("id", member.getId());
 
         return "member-signup-complete";
-    }
-
-    /**
-     * 멤버 로그인
-     * @param requestDto 멤버 등록정보
-     * @return 등록된 멤버 Seq
-     */
-    @PostMapping("/loginProc")
-    public String login(MemberLoginRequestDto requestDto, RedirectAttributes redirectAttributes) {
-        // 로그인 처리
-        Member member = memberService.login(requestDto);
-
-        if (member != null) {
-            // 로그인 멤버의 세션 생성
-            httpSession.setAttribute("member", new SessionMember(member));
-            // index 페이지로 리다이렉트
-            return "redirect:/";
-        } else {
-            redirectAttributes.addFlashAttribute("error", "로그인에 실패하였습니다. 아이디와 패스워드를 확인해주세요.");
-            return "redirect:/login";
-        }
     }
 
     /**

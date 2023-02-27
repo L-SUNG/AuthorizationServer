@@ -38,13 +38,20 @@ public class SecurityConfig {
                     // 페이지 권한 설정
                     .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**", "/member/login", "/member/signup/**", "/member/logout", "/member/mypage").permitAll()
-                    .antMatchers(HttpMethod.POST, "/h2-console/**", "/member/loginProc", "/member/signup/**", "/api/v1/**").permitAll()
+                    .antMatchers(HttpMethod.POST, "/h2-console/**", "/member/signup/**", "/api/v1/**").permitAll()
                     .anyRequest().permitAll()
                 .and()
+                    // 로그인
                     .formLogin()
                     .loginPage("/member/login")
                     .defaultSuccessUrl("/")
-                    .failureHandler(customFailureHandler);
+                    .failureHandler(customFailureHandler)
+                .and()
+                    // 로그아웃
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                    .logoutSuccessUrl("/")
+                    .invalidateHttpSession(true);
 
         return http.build();
     }
