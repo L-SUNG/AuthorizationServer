@@ -37,14 +37,14 @@ public class SecurityConfig {
                 .and()
                     // 페이지 권한 설정
                     .authorizeRequests()
-                    .antMatchers(HttpMethod.GET, "/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**", "/member/login", "/member/signup/**", "/member/logout", "/member/mypage").permitAll()
+                    .antMatchers(HttpMethod.GET, "/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/api/v1/**", "/member/login", "/member/signup/**", "/member/logout").permitAll()
                     .antMatchers(HttpMethod.POST, "/h2-console/**", "/member/signup/**", "/api/v1/**").permitAll()
-                    .anyRequest().permitAll()
+                    .anyRequest().authenticated()
                 .and()
                     // 로그인
                     .formLogin()
                     .loginPage("/member/login")
-                    .defaultSuccessUrl("/")
+                    .defaultSuccessUrl("/", true)
                     .failureHandler(customFailureHandler)
                 .and()
                     // 로그아웃

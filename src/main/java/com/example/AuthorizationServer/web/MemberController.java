@@ -5,8 +5,12 @@ import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.dto.ErrorMsg;
 import com.example.authorizationserver.service.member.MemberService;
 import com.example.authorizationserver.web.form.MemberSignUpForm;
+import com.example.authorizationserver.web.util.MemberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -106,29 +110,6 @@ public class MemberController {
      */
     @GetMapping("/mypage")
     public String memberMyPage(Model model) {
-
-        // 로그인 상태 확인
-        if (!loginCheck()) {
-            return "redirect:/login";
-        }
-
         return "member-mypage";
-    }
-
-    /**
-     * 로그인 상태 확인
-     * TODO:SpringSecurity를 활용한 로그인 검사로 전환 필요
-     * @return 확인결과
-     */
-    private boolean loginCheck() {
-        SessionMember sessionMember = (SessionMember) httpSession.getAttribute("member");
-        // 로그인 상태 확인
-        if (sessionMember == null) {
-            // 비로그인 상태
-            return false;
-        } else {
-            // 로그인 상태
-            return true;
-        }
     }
 }
