@@ -14,7 +14,7 @@
     <!-- top -->
     <div class="row mx-0 bg-dark" style="height: 40px;">
         <div class="col d-flex align-self-center" style="height: 20px;">
-            <p class="fw-bold text-light">AuthorizationServer</p>
+            <a href="/" class="text-decoration-none"><p class="fw-bold text-light">AuthorizationServer</p></a>
         </div>
         <div class="col d-flex justify-content-end">
             <!-- 데스크톱 모드 표시-->
@@ -23,6 +23,7 @@
                     <a href="/member/login"><p class="desktop fw-bold text-light">로그인</p></a>
                 {{/member}}
                 {{#member}}
+                    <a href="/member/mypage" class="me-2"><p class="desktop fw-bold text-light">마이페이지</p></a>
                     <a href="/member/logout"><p class="desktop fw-bold text-light">로그아웃</p></a>
                 {{/member}}
             </div>
@@ -35,13 +36,11 @@
                     <div class="modal" id="topMenuModal" tabindex="-1" aria-labelledby="topMenuModal" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-lg-down mobile">
                             <div class="modal-content">
-
-                                <!-- 모달 내부 컨텐츠-->
+                                <!-- 모달 내부 컨텐츠 -->
                                 <div class="row mx-0 bg-dark" style="height: 40px;">
                                     <div class="col d-flex align-self-center">
                                         <!-- 로그인 버튼 -->
                                         <div class="d-flex align-self-center" style="height: 20px;">
-
                                             {{^member}}
                                                 <a href="/member/login"><p class="fw-bold text-light">로그인</p></a>
                                             {{/member}}
@@ -55,7 +54,18 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- 모달 메뉴 -->
+                                <div class="row mx-0">
+                                    <ul class="nav nav-pills flex-column mb-auto">
+                                        {{#member}}
+                                            <li class="nav-item">
+                                                <a href="/member/mypage" class="nav-link link-dark">
+                                                    마이페이지
+                                                </a>
+                                            </li>
+                                        {{/member}}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

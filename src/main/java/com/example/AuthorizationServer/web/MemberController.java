@@ -1,6 +1,5 @@
 package com.example.authorizationserver.web;
 
-import com.example.authorizationserver.config.auth.dto.SessionMember;
 import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.dto.ErrorMsg;
 import com.example.authorizationserver.service.member.MemberService;
@@ -9,8 +8,6 @@ import com.example.authorizationserver.web.util.MemberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +29,9 @@ public class MemberController {
 
     private final HttpSession httpSession;
     private final MemberService memberService;
+
+
+    private Authentication authentication;
 
     /**
      * 로그인 화면 이동
@@ -110,6 +110,14 @@ public class MemberController {
      */
     @GetMapping("/mypage")
     public String memberMyPage(Model model) {
+        // 로그인 중인 멤버의 ID 취득
+        authentication = MemberUtil.getAuthentication();
+        String id = (String)authentication.getPrincipal();
+        // 멤버 정보 취득
+        Member member = memberService.findById(id);
+        // 멤버 정보를 모델에 설정
+        model.addAttribute("mypage", member);
+
         return "member-mypage";
     }
 }

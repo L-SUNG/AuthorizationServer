@@ -3,7 +3,6 @@ package com.example.authorizationserver.service.member;
 import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.domain.member.MemberRepository;
 import com.example.authorizationserver.domain.member.Role;
-import com.example.authorizationserver.web.dto.MemberLoginRequestDto;
 import com.example.authorizationserver.web.dto.MemberSaveRequestDto;
 import com.example.authorizationserver.web.dto.MemberResponseDto;
 import com.example.authorizationserver.web.form.MemberSignUpForm;
@@ -11,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -59,5 +60,17 @@ public class MemberService {
         this.memberRepository.save(member);
 
         return member;
+    }
+
+    /**
+     * 멤버 ID로 검색
+     * @param id 멤버 ID
+     * @return 멤버 정보
+     */
+    public Member findById(String id) {
+        // 멤버 ID로 검색
+        Optional<Member> _member = this.memberRepository.findById(id);
+        // 멤버정보 취득
+        return _member.get();
     }
 }
