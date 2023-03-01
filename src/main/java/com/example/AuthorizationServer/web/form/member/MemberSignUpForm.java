@@ -1,4 +1,4 @@
-package com.example.authorizationserver.web.form;
+package com.example.authorizationserver.web.form.member;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,4 +1,4 @@
-package com.example.authorizationserver.web.dto;
+package com.example.authorizationserver.web.dto.member;
 
 import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.domain.member.Role;

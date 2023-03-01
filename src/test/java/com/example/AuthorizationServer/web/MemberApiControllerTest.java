@@ -2,7 +2,7 @@ package com.example.authorizationserver.web;
 
 import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.domain.member.MemberRepository;
-import com.example.authorizationserver.web.dto.MemberSaveRequestDto;
+import com.example.authorizationserver.web.dto.member.MemberSaveRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -60,7 +59,6 @@ public class MemberApiControllerTest {
     }
 
     @Test
-    @WithMockUser(roles="USER")
     public void MemberRegister() throws Exception {
         String id = "id";
         String pass = "pass";

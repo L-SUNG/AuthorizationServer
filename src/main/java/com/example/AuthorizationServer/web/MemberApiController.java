@@ -1,8 +1,8 @@
 package com.example.authorizationserver.web;
 
 import com.example.authorizationserver.service.member.MemberService;
-import com.example.authorizationserver.web.dto.MemberSaveRequestDto;
-import com.example.authorizationserver.web.dto.MemberResponseDto;
+import com.example.authorizationserver.web.dto.member.MemberSaveRequestDto;
+import com.example.authorizationserver.web.dto.member.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

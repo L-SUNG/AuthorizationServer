@@ -3,7 +3,7 @@ package com.example.authorizationserver.web;
 import com.example.authorizationserver.domain.member.Member;
 import com.example.authorizationserver.dto.ErrorMsg;
 import com.example.authorizationserver.service.member.MemberService;
-import com.example.authorizationserver.web.form.MemberSignUpForm;
+import com.example.authorizationserver.web.form.member.MemberSignUpForm;
 import com.example.authorizationserver.web.util.MemberUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
